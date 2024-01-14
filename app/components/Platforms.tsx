@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, ImageBackground } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { ParentPlatform, PlatformType } from '../types/rawg'
 import {
   NintentoIcon,
@@ -8,13 +8,12 @@ import {
   WindowsIcon,
   XboxIcon,
 } from './Icons'
-import { ITEM_SIZE, height, width } from '../const'
 
 type Props = {
   platforms: ParentPlatform[]
 }
 
-const platformIcons: Record<PlatformType, JSX.Element> = {
+const platformIcon: Record<PlatformType, JSX.Element> = {
   pc: <WindowsIcon />,
   nintendo: <NintentoIcon />,
   playstation: <PlaystationIcon />,
@@ -30,7 +29,7 @@ export const Platforms = ({ platforms }: Props) => (
         key={platform.id}
         style={styles.icon}
         accessibilityLabel={platform.name}>
-        {platformIcons[platform.slug]}
+        {platformIcon[platform.slug]}
       </View>
     ))}
   </View>

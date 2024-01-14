@@ -2,9 +2,14 @@ import { Dimensions, PixelRatio, Platform } from 'react-native'
 import { RawgGame } from './types/rawg'
 import { Game } from './types/game'
 
+// NOTE: by caching window dimensions we assuming no device rotation support
 export const windowDimensions = Dimensions.get('window')
 export const isIos = Platform.OS === 'ios'
-export const getImageProps = (uri: string, width: number, height: number) => ({
+export const getImageSourceProps = (
+  uri: string,
+  width: number,
+  height: number
+) => ({
   uri,
   width: PixelRatio.getPixelSizeForLayoutSize(width),
   height: PixelRatio.getPixelSizeForLayoutSize(height),

@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Animated, FlatList, Image, StyleSheet, View } from 'react-native'
-import { height, ITEM_SIZE, SPACER_ID, width } from '../const'
+import { height, ITEM_SIZE, width } from '../const'
 import { Game } from '../types/game'
 
 const BACKDROP_HEIGHT = height * 0.65
@@ -44,7 +44,6 @@ export const Backdrop = ({ items, scrollX }: Props) => (
       data={items}
       keyExtractor={({ id }) => id}
       directionalLockEnabled
-      // getItemLayout
       scrollEnabled={false}
       pinchGestureEnabled={false}
       removeClippedSubviews={false}
@@ -52,7 +51,7 @@ export const Backdrop = ({ items, scrollX }: Props) => (
       renderItem={(item) => <BackdropItem {...item} scrollX={scrollX} />}
     />
     <LinearGradient
-      colors={['rgba(0, 0, 0, 0)', 'white']}
+      colors={['rgba(0, 0, 0, 0)', 'white', 'white']}
       style={styles.linearGradient}
     />
   </View>

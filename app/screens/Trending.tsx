@@ -2,10 +2,10 @@ import React, { useMemo } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { Carousel } from '../components/Carousel'
 import { useFetch } from '../hooks/useFetch'
-import { Game, RawgGame } from '../types/game'
 import { RawgResults } from '../types/rawg'
 import { mapGameProps } from '../utils'
 
+// NOTE: Mock data
 const GAME_RATING = {
   1: { id: 1, title: 'skip', count: 4, percent: 5.48 },
   3: { id: 3, title: 'meh', count: 13, percent: 17.81 },
@@ -23,24 +23,19 @@ const IMAGES = [
   'https://media.rawg.io/media/crop/600/400/games/3e8/3e81585ecda204d4f4b80a041b069adb.jpg',
 ] as const
 
+// TODO: Store base uri as env var
 const trendingGamesUri =
   'https://rawg.io/api/games/lists/main?discover=false&ordering=relevance&page_size=10&page=1&key=c542e67aec3a4340908f9de9e86038af'
 
-type Props = {}
-
-export const Trending = (props: Props) => {
+export const Trending = () => {
   const [trendingGames, { isLoading }] = useFetch<RawgResults>(trendingGamesUri)
 
   const games = useMemo(
     () => (trendingGames ? mapGameProps(trendingGames.results) : []),
     [trendingGames]
   )
-  // const names = games.map((g) => g.name)
-  // console.log(
-  //   '🚀 ~ file: Trending.tsx:39 ~ Trending ',
-  //   JSON.stringify(names, null, 2)
-  // )
 
+  // TODO: Instead of "Loading" text, use card skeleton
   return (
     <View style={styles.container}>
       {isLoading ? <Text>Loading</Text> : <Carousel items={games} />}

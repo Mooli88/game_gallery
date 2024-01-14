@@ -3,7 +3,7 @@ import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ITEM_SIZE } from '../const'
 import { Game } from '../types/game'
-import { getImageProps } from '../utils'
+import { getImageSourceProps } from '../utils'
 import { Platforms } from './Platforms'
 
 type Props = Pick<Game, 'coverImage' | 'name' | 'rating' | 'platforms'>
@@ -12,7 +12,7 @@ export const GameCard = ({ coverImage, name, platforms, rating }: Props) => {
   return (
     <View style={styles.container}>
       <Image
-        source={getImageProps(coverImage, ITEM_SIZE, ITEM_SIZE * 1.2)}
+        source={getImageSourceProps(coverImage, ITEM_SIZE, ITEM_SIZE * 1.2)}
         style={styles.coverImage}
         resizeMode='cover'
       />
@@ -22,7 +22,7 @@ export const GameCard = ({ coverImage, name, platforms, rating }: Props) => {
           {name}
         </Text>
         <View>
-          <Text style={styles.rating}>⭐️ {rating}</Text>
+          <Text style={styles.rating}>⭐️ {rating.toFixed(1)}</Text>
         </View>
       </BlurView>
     </View>

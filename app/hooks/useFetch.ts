@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const _cache: Record<string, any> = {}
 
-const setCache = <T>(id: string, data: T) => {
+const setCache = (id: string, data: string) => {
   _cache[id] = data
 }
 
@@ -20,13 +20,14 @@ export const useFetch = <T>(
   uri: string,
   { fetchOnInit = true } = {}
 ): ReturnType<T | undefined> => {
-  const [isLoading, setLoading] = useState(fetchOnInit)
+  const { current: fetchOnInitCurr } = useRef(fetchOnInit)
+  const [isLoading, setLoading] = useState(fetchOnInitCurr)
   const [data, setData] = useState<T>()
+  // TODO: add error state
 
   const doFetch = async (uri: string) => {
     const cache = getCache(uri)
     if (cache) {
-      setCache(uri, cache)
       return
     }
 
@@ -43,10 +44,10 @@ export const useFetch = <T>(
   }
 
   useEffect(() => {
-    if (fetchOnInit) {
+    if (fetchOnInitCurr) {
       doFetch(uri)
     }
-  }, [fetchOnInit])
+  }, [])
 
   return [data, { isLoading, doFetch }]
 }

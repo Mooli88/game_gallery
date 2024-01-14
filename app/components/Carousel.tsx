@@ -1,8 +1,7 @@
 import React, { useMemo, useRef } from 'react'
-import { Animated, Image, StyleSheet, View } from 'react-native'
+import { Animated, StyleSheet, View } from 'react-native'
 import { ITEM_SIZE, SPACER_ID, width } from '../const'
 import { Game } from '../types/game'
-import { getImageProps } from '../utils'
 import { Backdrop } from './Backdrop'
 import { GameCard } from './GameCard'
 
@@ -11,16 +10,24 @@ type Props = {
 }
 
 export const Carousel = ({ items }: Props) => {
-  const scrollX = useRef(new Animated.Value(0)).current
+  const scrollXRef = useRef<Animated.Value | null>(null)
+
+  if (scrollXRef.current === null) {
+    scrollXRef.current = new Animated.Value(0)
+  }
+
+  const scrollX = scrollXRef.current
+
   const carouselItems = useMemo(
     () => [{ id: SPACER_ID.START }, ...items, { id: SPACER_ID.END }] as Game[],
-    [items.length]
+    [items]
   )
 
   const AnimatedEvent = Animated.event(
     [{ nativeEvent: { contentOffset: { x: scrollX } } }],
     { useNativeDriver: false }
   )
+
   const animationInputRange = (index: number) => [
     (index - 2) * ITEM_SIZE,
     (index - 1) * ITEM_SIZE,
