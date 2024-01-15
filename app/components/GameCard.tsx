@@ -12,7 +12,7 @@ export const GameCard = ({ coverImage, name, platforms, rating }: Props) => {
   return (
     <View style={styles.container}>
       <Image
-        source={getImageSourceProps(coverImage, ITEM_SIZE, ITEM_SIZE * 1.2)}
+        source={{ uri: coverImage }}
         style={styles.coverImage}
         resizeMode='cover'
       />
@@ -28,18 +28,20 @@ export const GameCard = ({ coverImage, name, platforms, rating }: Props) => {
     </View>
   )
 }
+const CARD_HIGHT = ITEM_SIZE * 1.4
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: ITEM_SIZE * 1.4,
+    height: CARD_HIGHT,
     overflow: 'hidden',
     borderRadius: 24,
     position: 'relative',
   },
   coverImage: {
-    width: 'auto',
     flex: 1,
+    width: ITEM_SIZE,
+    height: CARD_HIGHT,
   },
   cardBody: {
     bottom: 0,

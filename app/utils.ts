@@ -5,6 +5,7 @@ import { Game } from './types/game'
 // NOTE: by caching window dimensions we assuming no device rotation support
 export const windowDimensions = Dimensions.get('window')
 export const isIos = Platform.OS === 'ios'
+
 export const getImageSourceProps = (
   uri: string,
   width: number,

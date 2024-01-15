@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Animated, FlatList, Image, StyleSheet, View } from 'react-native'
 import { height, ITEM_SIZE, width } from '../const'
 import { Game } from '../types/game'
@@ -19,11 +19,15 @@ type BackdropItemProps = {
 }
 
 const BackdropItem = ({ item, index, scrollX }: BackdropItemProps) => {
-  const translateX = scrollX.interpolate({
-    inputRange: [(index - 2) * ITEM_SIZE, (index - 1) * ITEM_SIZE],
-    outputRange: [0, width + 10],
-    extrapolate: 'clamp',
-  })
+  const translateX = useMemo(
+    () =>
+      scrollX.interpolate({
+        inputRange: [(index - 2) * ITEM_SIZE, (index - 1) * ITEM_SIZE],
+        outputRange: [0, width + 10],
+        extrapolate: 'clamp',
+      }),
+    []
+  )
 
   return (
     <Animated.View
@@ -47,6 +51,7 @@ export const Backdrop = ({ items, scrollX }: Props) => (
       scrollEnabled={false}
       pinchGestureEnabled={false}
       removeClippedSubviews={false}
+      disableScrollViewPanResponder
       contentContainerStyle={{ width, height: BACKDROP_HEIGHT }}
       renderItem={(item) => <BackdropItem {...item} scrollX={scrollX} />}
     />

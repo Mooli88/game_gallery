@@ -51,25 +51,23 @@ export const Carousel = ({ items }: Props) => {
         snapToInterval={ITEM_SIZE}
         keyExtractor={({ id }) => `${id}`}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={styles.contentContainer}
         renderItem={({ item, index }) =>
           `${item.id}`.startsWith(SPACER_ID.PREFIX) ? (
             <View style={styles.spacer} />
           ) : (
-            <View style={styles.coverImageContainer}>
-              <Animated.View
-                style={[
-                  styles.animatedCoverImageContainer,
-                  { transform: [{ translateY: translateY(index) }] },
-                ]}>
-                <GameCard
-                  coverImage={item.coverImage}
-                  name={item.name}
-                  rating={item.rating}
-                  platforms={item.platforms}
-                />
-              </Animated.View>
-            </View>
+            <Animated.View
+              style={[
+                styles.animatedCoverImageContainer,
+                { transform: [{ translateY: translateY(index) }] },
+              ]}>
+              <GameCard
+                coverImage={item.coverImage}
+                name={item.name}
+                rating={item.rating}
+                platforms={item.platforms}
+              />
+            </Animated.View>
           )
         }
       />
@@ -81,22 +79,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  coverImageContainer: {
-    width: ITEM_SIZE,
+  contentContainer: {
+    gap: 12,
+    alignItems: 'center',
   },
   animatedCoverImageContainer: {
-    // padding: 20,
+    width: ITEM_SIZE - 12,
     borderRadius: 24,
-    marginHorizontal: 5,
     alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  coverImage: {
-    width: '100%',
-    height: ITEM_SIZE * 1.2,
-    resizeMode: 'cover',
-    borderRadius: 24,
-    margin: 0,
   },
   spacer: {
     width: (width - ITEM_SIZE) / 2,
