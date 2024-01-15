@@ -1,4 +1,4 @@
-export interface RawgGame {
+export type RawgGame = {
   id: number
   slug: string
   name: string
@@ -28,14 +28,14 @@ export interface RawgGame {
   short_screenshots: ShortScreenshot[]
 }
 
-export interface AddedByStatus {
+export type AddedByStatus = {
   yet: number
   owned: number
   beaten: number
   toplay: number
 }
 
-export interface Clip {
+export type Clip = {
   clip: string
   clips: {
     '320': string
@@ -46,7 +46,7 @@ export interface Clip {
   preview: string
 }
 
-export interface Genre {
+export type Genre = {
   id: number
   name: string
   slug: string
@@ -64,23 +64,23 @@ export type PlatformType =
   | 'ios'
   | 'android'
 
-export interface ParentPlatform {
+export type ParentPlatform = {
   platform: ParentPlatformData
 }
 
-export interface ParentPlatformData {
+export type ParentPlatformData = {
   id: number
   name: string
   slug: PlatformType
 }
 
-export interface PlatformData {
+export type PlatformData = {
   platform: Platform
   released_at: null
   requirements_en: null
 }
 
-export interface Platform {
+export type Platform = {
   id: number
   name: string
   slug: PlatformType
@@ -91,12 +91,12 @@ export interface Platform {
   image_background: string
 }
 
-export interface ShortScreenshot {
+export type ShortScreenshot = {
   id: number
   image: string
 }
 
-export interface Store {
+export type Store = {
   id: number
   store: Genre
 }

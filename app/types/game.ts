@@ -1,12 +1,8 @@
-import { Clip, ParentPlatform, RawgGame } from './rawg'
+import { Clip, RawgGame } from './rawg'
 
-export interface Game
-  extends Pick<
-    RawgGame,
-    'slug' | 'name' | 'released' | 'tba' | 'rating' | 'genres'
-  > {
+export type Game = {
   id: string
   clip: Clip['clips']['640'] | null | undefined
   coverImage: RawgGame['background_image']
   platforms: RawgGame['parent_platforms']
-}
+} & Pick<RawgGame, 'slug' | 'name' | 'released' | 'tba' | 'rating' | 'genres'>
